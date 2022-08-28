@@ -1,39 +1,40 @@
 package com.example.greetingproject.controller;
-import java.util.concurrent.atomic.AtomicLong;
-
-import com.example.greetingproject.model.Greeting;
+import com.example.greetingproject.service.GreetingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import com.example.greetingproject.model.Greeting;
-import com.example.greetingproject.service.IGreetingService;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/greeting")
+@RequestMapping("/greet")
 public class GreetingController {
-    private static final String template = "Hello, %s!";
-    private final AtomicLong counter = new AtomicLong();
+    @RequestMapping(value = {"", "/", "/home"}, method = RequestMethod.GET)
+    public String greet() {
+        return "Hello, this is Dipali from Jalgaon";
+    }
+
+    @RequestMapping("/query/{name}")
+    public String greet1(@PathVariable String name) {
+        return "<h1><font color=purple>Hello! This is " + name + " From Jalgaon!</font></h1>" +
+                "</br> <font color=green>Passing name as a path variable.</font>";
+    }
+
+    @GetMapping("/query")
+    public String getUsers(@RequestParam(value = "name", defaultValue = "Dipali") String name) {
+        return "<h1><font color=red>Hello! This is " + name + " From Jalgaon!</font></h1>" +
+                "</br> <font color=black>Passing name as a parameter.</font>";
+    }
+    /*
+    Extending GreetingController to use Services Layer to get Simple Greeting message
+     */
     @Autowired
-    private IGreetingService greetingService;
-
-
-    @GetMapping(value = { "", "/", "/home" })
-    public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
-        return new Greeting(counter.incrementAndGet(), String.format(template, name));
-    }
-
-
-    @GetMapping("/{name}")
-    public Greeting greetings(@PathVariable String name) {
-        return new Greeting(counter.incrementAndGet(), String.format(template, name));
-    }
+    GreetingService greetingService;
     @GetMapping("/service")
-    public Greeting greeting() {
-        return greetingService.greetingMessage();
-
+    public String serviceCall() {
+        return greetingService.helloWorld();
+    }
+    @GetMapping("/user")
+    public String greetMessageWithUser(@RequestParam(value = "firstName", defaultValue = "") String firstName,
+                                       @RequestParam(value = "lastName", defaultValue = "") String lastName) {
+        return greetingService.greetMessageWithUser(firstName, lastName);
     }
 
 }
