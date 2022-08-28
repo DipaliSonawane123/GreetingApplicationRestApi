@@ -4,18 +4,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class GreetingService  {
     public String helloWorld() {
-        return "Hello World!! :)";
+        return "Hello World.....";
     }
 
     public String greetMessageWithUser(String firstName, String lastName) {
         if (firstName.isEmpty() && lastName.isEmpty()) {
             return helloWorld();
         } else if (lastName.equals("") && !firstName.equals("")) {
-            return "Hello! " + firstName ;
+            return "Hello " + firstName ;
         } else if (!lastName.equals("") && firstName.equals("")) {
-            return "Hello! " + lastName ;
+            return "Hello " + lastName ;
         }
-        return "Hello! " + firstName +" "+ lastName ;
+        return "Hello " + firstName +" "+ lastName ;
     }
 }
 
