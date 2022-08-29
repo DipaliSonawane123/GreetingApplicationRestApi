@@ -4,6 +4,8 @@ import com.example.greetingproject.repo.Repo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class GreetingService  {
   @Autowired
@@ -26,7 +28,13 @@ public class GreetingService  {
          repository.save(greeting);
          return greeting;
     }
-}
+    public Optional<Greeting> sayHelloById(long id) {
+        return repository.findById(id);
+
+    }
+    }
+
+
 
 
 

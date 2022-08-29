@@ -2,8 +2,9 @@ package com.example.greetingproject.controller;
 import com.example.greetingproject.model.Greeting;
 import com.example.greetingproject.service.GreetingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/greet")
@@ -44,4 +45,10 @@ public class GreetingController {
          greetingService.greetingMessage(greeting);
     return greeting;
     }
+    @GetMapping("/get/{id}")
+    public Optional<Greeting> sayHelloById(@PathVariable long id){
+        Optional<Greeting> response = greetingService.sayHelloById(id);
+        return response;
+    }
+
 }
