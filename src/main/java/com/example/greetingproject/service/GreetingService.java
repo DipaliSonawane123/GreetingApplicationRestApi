@@ -45,7 +45,11 @@ public class GreetingService  {
         else
             return null;
     }
+    public void deleteById(long id) {
+        repository.deleteById(id);
     }
+}
+
 
 
 
