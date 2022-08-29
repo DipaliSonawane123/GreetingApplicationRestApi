@@ -4,6 +4,7 @@ import com.example.greetingproject.service.GreetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -50,5 +51,9 @@ public class GreetingController {
         Optional<Greeting> response = greetingService.sayHelloById(id);
         return response;
     }
-
+    @GetMapping("/findAll")
+    public List<Greeting> sayToAll (){
+        List<Greeting> response = greetingService.sayAll();
+        return response;
+    }
 }
